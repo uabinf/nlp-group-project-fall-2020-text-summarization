@@ -10,20 +10,6 @@ import numpy as np
 import networkx as nx
 
 
-# Reading the input file 
-
-def read_input(file_name):
-    file = open(file_name, "r")
-    f_read = file.readlines()
-    data = f_read[0].split(". ")
-    sentences = []
-
-    for sentence in data:
-        #print(sentence)
-        sentences.append(sentence.replace("[^a-zA-Z]", " ").split(" "))
-    sentences.pop() 
-    
-    return sentences
 
 # Building vocabulary and finding sentence similarity using "Cosine Distance"
  
@@ -69,13 +55,18 @@ def build_similarity_matrix(sentences, stop_words):
 
 # Output the summarised text
 
-def summary(file_name, top_n=5):
+def summary(file_name):
+    print("in summary")
+    top_n=5
     stop_words = stopwords.words('english')
     summarized_text = []
-
+    file_name_edit = file_name.split(".")
+    sentences =[]
+    for sentence in file_name_edit:
+        # print(sentence)
+        sentences.append(sentence.replace("[^a-zA-Z]", " ").split(" "))
+    print(sentences)
     # Calling the respective functions
-
-    sentences =  read_input(file_name)
 
     sentence_similarity_martix = build_similarity_matrix(sentences, stop_words)
 
@@ -94,4 +85,4 @@ def summary(file_name, top_n=5):
     print("Summarized Text: \n", ". ".join(summarized_text))
 
 
-summary("sample.txt", 3)
+# summary("sample.txt", 3)
